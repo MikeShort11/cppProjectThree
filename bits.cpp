@@ -47,7 +47,53 @@ void Bits::reset() {
 	bits = 0;
 }
 
+//assigns a bit at pos to the bool value
 void Bits::assign(int pos, bool val) {
+	assert(0 <= pos && pos < NBITS);
 	if (val) Bits::set(pos);
 	else Bits::reset(pos);
 }
+
+void Bits::assign(IType n) {
+	bits = n;
+}
+
+void Bits::toggle(int pos){
+	assert(0 <= pos && pos < NBITS);
+	bits ^= (IType(1) << pos);
+}
+
+void Bits::toggle() {
+	bits = ~bits;
+}
+
+void Bits::shift(int n){
+	if (n > 0){
+		bits >>= n;
+	} else if (n < 0){
+		bits <<= -n;
+	} else {
+		return;
+	}
+}
+
+void Bits::rotate(int n){
+	if (n > 0) {
+		bits = (bits >> n | bits << (NBITS - n));
+	} else if (n < 0) {
+		bits = (bits << -n | bits >> (NBITS + n));
+	} else {
+		return;
+	}
+}
+
+int Bits::ones() const {
+	IType temp_bits = bits;
+	int count = 0;
+	while (temp_bits) {
+		count += temp_bits & IType(1);
+		temp_bits >>= 1;
+	}
+	return count;
+}
+

@@ -1,6 +1,9 @@
 #ifndef BITS
 #define BITS
 
+#include <iostream>
+#include <bitset>
+
 class Bits {
     using IType = unsigned long long; // We only have to change the integer type here, if desired
     enum {NBITS = sizeof(IType)*8};
